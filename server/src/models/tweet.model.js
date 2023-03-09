@@ -74,4 +74,4 @@ TweetSchema.methods.unRetweet = function (userId) {
     return Promise.resolve(this);
   };
 
-module.exports = mongoose.Model('Tweet', TweetSchema)
+module.exports = mongoose.model('Tweet', TweetSchema)

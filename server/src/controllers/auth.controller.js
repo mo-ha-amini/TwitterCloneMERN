@@ -17,23 +17,23 @@ exports.registerUser = async(req, res) =>{
     }
 
     const user = await User.create(userBody)
+    console.log(user._id)
 
-    const [token] = Promise.all([
-        user.generateAuthToken(),
 
-        Profile.create({ user: userId })
-    ])
-
+    const token = await user.generateAuthToken()
+    await Profile.create({ user: user._id })
+    
     return res.status(201).json({user, token})
 }
 
 
 exports.loginUser = async (req, res) => {
     const { username, password } = req.body;
-  
+
     const isEmail = validator.isEmail(username);
+    console.log(username, password, isEmail)
   
-    const user = await User.findByCredentials(username, password, isEmail);
+    const user = await User.findByCredentionals(username, password, isEmail);
     const token = await user.generateAuthToken();
   
     return res.status(200).json({ user, token });

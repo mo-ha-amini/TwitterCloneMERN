@@ -129,4 +129,4 @@ ProfileSchema.methods.retweeted = function (tweetId) {
     return this.retweets.some((id) => id.equals(tweetId));
 };
 
-module.exports = mongoose.Model('Profile', ProfileSchema)
+module.exports = mongoose.model('Profile', ProfileSchema)

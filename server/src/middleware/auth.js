@@ -1,34 +1,31 @@
-const passport = require('passport');
-const { ErrorHandler } = require('../utils/error');
-const { roleRights } = require('../config/roles');
+const jwt = require('jsonwebtoken')
+const {ErrorHandler} = require('../utils/error');
+const catchAsyncErrors = require("./catchAsyncErrors");
+const User = require('../models/user.model')
 
-const verifyCallback = (req, resolve, reject, requiredRights) => async (err, user, info) => {
-  if (err || info || !user) {
-    return reject(new ErrorHandler(401, 'You are not authenticated'));
-  }
-  req.user = user;
 
-  if (requiredRights.length) {
-    const userRights = roleRights.get(user.role);
-    const hasRequiredRights = requiredRights.every((requiredRight) => userRights.includes(requiredRight));
-    if (!hasRequiredRights && req.params.userId !== user.id) {
-      return reject(new ErrorHandler(403, 'You are not authorized'));
+
+exports.isAuthenticatedUser = catchAsyncErrors(async (req ,res,next)=>{
+    const {token} = req.cookies
+
+    if(!token){
+        return next(new ErrorHandler('.برای دسترسی به این قسمت ابتدا به حساب کاربری خود وارد شوید',401))
     }
-  }
 
-  resolve();
-};
+    const decoded = jwt.verify(token,'ROU2878RHCUFB47RY7RCHCCM28327R')
 
-const auth = (...requiredRights) => async (req, res, next) => {
-  return new Promise((resolve, reject) => {
-    passport.authenticate('jwt', { session: false }, verifyCallback(req, resolve, reject, requiredRights))(
-      req,
-      res,
-      next
-    );
-  })
-    .then(() => next())
-    .catch((err) => next(err));
-};
+    req.user = await User.findById(decoded.id)
 
-module.exports = auth;
+    next()
+
+})
+
+exports.AuthorizedRoles = (...roles)=>{
+    return (req,res,next)=>{
+        if(!roles.includes(req.user.role)){
+           return next(new ErrorHandler(`.اجازه دسترسی به این قسمت را ندارد ${req.user.role}`,403))
+        }
+
+        next()
+    }
+}

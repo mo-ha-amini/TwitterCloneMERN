@@ -105,9 +105,10 @@ UserSchema.methods.generateAuthToken = function () {
 };
 
 UserSchema.statics.findByCredentionals = async function (username, password, isEmail){
-    const user = this.findOne({
+    
+    const user = await this.findOne({
         [isEmail ? 'email' : 'username']: username
-    })
+    }).exec()
 
     if(!user){
         throw new ErrorHandler(400, 'Invalid Login credentionals')

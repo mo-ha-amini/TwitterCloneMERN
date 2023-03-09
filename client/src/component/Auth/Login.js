@@ -7,42 +7,44 @@ import { useNavigate } from 'react-router-dom'
 import Logo from '../../assets/twitter--v1.png'
 import { toast } from "react-toastify";
 import styled from 'styled-components';
-import {register , cleanErrors} from '../../actions/user.action'
+import {login , cleanErrors} from '../../actions/user.action'
 
-function Register() {
+function Login() {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { loading, isAuthenticated, error } = useSelector(state => state.auth)
 
     const [user,setUser] = useState({
-        name:'',
-        email:'',
         password:'',
         username:''
     })
-    const {name , username, email , password} = user
+    const { username, password} = user
 
 
     useEffect(()=>{
 
-        // if(isAuthenticated){
-        //     navigate('/')
-        // }
+        if(isAuthenticated){
+            // navigate('/')
+            console.log('isAuthenticated: ',isAuthenticated)
+        }
 
         if(error){
-            console.log('error')
+            console.log(error)
             dispatch(cleanErrors())
         }
     } , [dispatch, isAuthenticated, error] )
 
     const submitHandler = (e) =>{
         e.preventDefault();
+        
+        let loginData = {
+            username , password
+        }
 
-        let registerData ={ name, username, email, password } 
-
-        dispatch(register(registerData))
-        {console.log(registerData)}
+        console.log(loginData)
+        dispatch(login(loginData))
+       
     }
 
     const onChange = e =>{
@@ -53,34 +55,20 @@ function Register() {
   return (
     <DivContainer>
 
-        <Box class="box box-two">
-            <i class="fab fa-twitter"><img src={Logo}/></i>
+        <Box className="box box-two">
+            <i className="fab fa-twitter"><img src={Logo}/></i>
             <form onSubmit={submitHandler}>
-                <Input 
-                    type="text" 
-                    placeholder="Full Name" 
-                    name='name'
-                    value={name}
-                    onChange={onChange}
-                    
-                />
+                
 
                 <Input 
                     type="text" 
-                    placeholder="Username"
+                    placeholder="Username or Email"
                     name='username'
                     value={username}
                     onChange={onChange}
                     
                 />
 
-                <Input 
-                    type="text" 
-                    placeholder="Email"
-                    name='email'
-                    value={email}
-                    onChange={onChange}
-                />
 
                 <Input 
                     type="text" 
@@ -90,28 +78,26 @@ function Register() {
                     onChange={onChange}
                 />
                 
-                <Input 
-                    type="text" 
-                    placeholder="Confirm Password"/> 
+                
 
                 <NextButton 
                     type="submit"
                     disabled = {loading ? true : false}
                 > 
               
-                    Register 
+                    Login 
                 </NextButton>
 
             </form>
             
-            <Button> Do have an account? Login </Button>
+            <Button> Do not have an account? Register </Button>
         </Box>
         
     </DivContainer>
   )
 }
 
-export default Register
+export default Login
 
 const Button = styled.button`
     width: 300px;

@@ -19,13 +19,14 @@ export const register = (userData)=> async (dispatch)=>{
 
         const config ={
             headers:{
-                'Content-Type':'multipart/form-data'
+                'Content-Type':'application/json'
             }
         }
         
-        
-        const {data} = await axios.post('/register',userData,config)
-        console.log(data)
+        console.log('heelo')
+        console.log(userData)
+
+        const {data} = await axios.post('/register', userData, config)
         dispatch({
             type:REGISTER_SUCCESS,
             payload:data.user
@@ -34,6 +35,31 @@ export const register = (userData)=> async (dispatch)=>{
     } catch (error) {
         dispatch({
             type:REGISTER_FAIL,
+            payload:error.response.data.message
+        })
+    }
+}
+
+export const login = (userData)=> async (dispatch)=>{
+    try{
+        dispatch({ type:LOGIN_REQUEST })
+
+        const config ={
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }
+        
+        const {data} = await axios.post('/login',userData,config)
+
+        dispatch({
+            type:LOGIN_SUCCESS,
+            payload:data.user
+        })
+
+    } catch (error) {
+        dispatch({
+            type:LOGIN_FAIL,
             payload:error.response.data.message
         })
     }

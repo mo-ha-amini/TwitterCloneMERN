@@ -7,6 +7,7 @@ const cors = require('cors');
 const passport = require('passport');
 const config = require('./config/keys');
 const { jwtStrategy } = require('./config/passport');
+const user = require('./routers/auth.route')
 // const { getRoutes } = require('./routes');
 // const testDataRoutes = require('./routes/testDataRoutes');
 const { handleNotFound, handleError } = require('./utils/error');
@@ -24,6 +25,7 @@ if (config.env !== 'test') {
 
 app.use(cors());
 app.options('*', cors());
+app.use(user)
 
 // jwt authentication
 app.use(passport.initialize());
