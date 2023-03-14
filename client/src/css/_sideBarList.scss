@@ -1,0 +1,40 @@
+@import 'variables';
+@import 'mixins';
+
+.sideBarList {
+  @include flex(flex, center);
+  cursor: pointer;
+
+  &__Active {
+    color: black;
+    h2 {
+      font-weight: 700 !important;
+    }
+  }
+
+  &:hover {
+    background-color: $background-post !important;
+    @include radius(30px);
+    color: black;
+    @include transition;
+  }
+
+  svg {
+    margin: 10px;
+    font-size: 24px;
+    height: 32px;
+  }
+
+  h2 {
+    @include font(20px, 500);
+    margin-right: 20px;
+  }
+  a {
+    @include transition;
+    @include flex(flex, center);
+    color: #000;
+    &:active {
+      color: #000;
+    }
+  }
+}

@@ -1,0 +1,56 @@
+@import 'variables';
+@import 'mixins';
+.tweetBox {
+  padding: 0 10px 10px 0;
+  border-bottom: 1px solid $twitter-background;
+  & > form {
+    display: flex;
+    flex-direction: column;
+    input {
+      flex: 1;
+      border: none;
+      font-size: 17px;
+      margin-left: 8px;
+    }
+  }
+
+  &__input {
+    @include flex(flex, center);
+    padding: 10px;
+    img {
+      @include size(48px, 48px);
+      @include radius(50%);
+      object-fit: cover;
+    }
+  }
+
+  &__footer {
+    @include flex(flex, center);
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+  }
+  &__icon {
+    svg {
+      margin: 10px;
+      color: $twitter-color;
+      cursor: pointer;
+      padding: 5px !important;
+      @include size(27px, 27px);
+
+      &:hover {
+        background-color: $background-post;
+        @include radius(50%);
+      }
+    }
+  }
+  &__btn {
+    background-color: $twitter-color;
+    color: $white;
+    text-transform: inherit;
+    @include radius(30px);
+    @include size(80px, 30px);
+    @include font(12px, 700);
+    cursor: pointer;
+  }
+}

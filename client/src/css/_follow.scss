@@ -1,0 +1,36 @@
+@import 'mixins';
+@import 'variables';
+
+.follow {
+  @include flex(flex, center);
+  justify-content: space-between;
+  margin: 10px 0;
+
+  &__avatar {
+    display: flex;
+    img {
+      @include size(48px, 48px);
+      margin: 0 10px 0 20px;
+      cursor: pointer;
+    }
+  }
+  &__user {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+
+    span {
+      color: $text-color;
+      font-size: 14px;
+    }
+  }
+  &__followBtn {
+    background-color: #000;
+    cursor: pointer;
+    margin-right: 20px;
+    color: $white;
+    @include size(74px, 32px);
+    @include radius(20px);
+    @include font(14px, 600);
+  }
+}

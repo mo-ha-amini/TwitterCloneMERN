@@ -1,0 +1,82 @@
+@import 'variables';
+@import 'mixins';
+.post {
+  @include flex(flex, flex-start);
+  border-bottom: 1px solid $twitter-background;
+  padding-bottom: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $background-post;
+    @include transition;
+  }
+
+  &__body {
+    flex: 1;
+    padding: 10px;
+
+    img {
+      @include radius(20px);
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    span {
+      @include font(11px, 400);
+      margin-left: 5px;
+      color: $gray;
+    }
+  }
+  &__headerText {
+    font-size: 15px;
+    margin-bottom: 5px;
+
+    h3 {
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+  }
+
+  &__avatar {
+    img {
+      @include size(50px, 50px);
+      @include radius(50%);
+      object-fit: cover;
+      margin: 3px 0 0 10px;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    svg {
+      @include size(35px, 35px);
+      @include radius(50%);
+      @include transition;
+      color: rgb(83, 100, 113);
+      padding: 10px;
+      cursor: pointer;
+    }
+  }
+
+  &__iconblue:hover {
+    background-color: rgba($twitter-color, 0.3);
+    color: $twitter-color;
+  }
+
+  &__icongreen:hover {
+    background-color: rgba(#a6e3cf, 0.3);
+    color: #59b194;
+  }
+  &__iconred:hover {
+    background-color: rgba(#cc83a6, 0.3);
+    color: #ec2828;
+  }
+  &__headerDescription {
+    font-size: 13px;
+    letter-spacing: 0.1px;
+    color: $text-color;
+  }
+}

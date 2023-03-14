@@ -4,7 +4,7 @@ const { paginatePlugin } = require('../utils/mongo')
 const TweetSchema = new mongoose.Schema({
 
     author: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
     },
@@ -15,7 +15,7 @@ const TweetSchema = new mongoose.Schema({
     },
 
     replyTo: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Tweet',
     },
 
@@ -29,10 +29,10 @@ const TweetSchema = new mongoose.Schema({
         default: false,
     },
 
-    likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     
-    retweets: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-})
+    retweets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+}, { timestamps: true })
 
 TweetSchema.plugin(paginatePlugin);
 

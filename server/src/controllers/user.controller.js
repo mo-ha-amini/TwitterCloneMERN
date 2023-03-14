@@ -10,9 +10,11 @@ exports.getUser = async (req, res)=>{
     const filters = pick(req.query, ['name', 'role'])
     const options = pick(req.query, ['sortBy', 'limit', 'page'])
 
-    const users = User.paginate(filters, options)
+    const users = await User.paginate(filters, options)
 
-    res.json(users)
+    res.status(201).json({
+        user:users
+    })
 }
 
 exports.getUserById= async (req, res)=>{

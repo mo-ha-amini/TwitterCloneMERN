@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken')
 const {ErrorHandler} = require('../utils/error');
-const catchAsyncErrors = require("./catchAsyncErrors");
+const catchAsyncErrors = require('./catchAsyncErrors.js')
 const User = require('../models/user.model')
+const config = require('../config/keys');
 
 
 
@@ -12,7 +13,7 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req ,res,next)=>{
         return next(new ErrorHandler('.برای دسترسی به این قسمت ابتدا به حساب کاربری خود وارد شوید',401))
     }
 
-    const decoded = jwt.verify(token,'ROU2878RHCUFB47RY7RCHCCM28327R')
+    const decoded = jwt.verify(token,config.env.JWT_SECRET)
 
     req.user = await User.findById(decoded.id)
 

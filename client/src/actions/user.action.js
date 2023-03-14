@@ -60,29 +60,30 @@ export const login = (userData)=> async (dispatch)=>{
     } catch (error) {
         dispatch({
             type:LOGIN_FAIL,
-            payload:error.response.data.message
+            // payload:error.response.data.message
         })
     }
 }
 
-// export const loadUser = ()=> async (dispatch)=>{
-//     try{
-//         dispatch({ type:LOAD_USER_REQUEST })
+export const loadUser = () => async (dispatch)=>{
+    try{
+        dispatch({ type:LOAD_USER_REQUEST })
         
-//         const {data} = await axios.get('/')
+        const { data } = await axios.get('/user')
+        // console.log(data.user.results[0])
 
-//         dispatch({
-//             type:LOAD_USER_SUCCESS,
-//             payload:data.user
-//         })
+        dispatch({
+            type:LOAD_USER_SUCCESS,
+            payload:data.user.results[0]
+        })
 
-//     } catch (error) {
-//         dispatch({
-//             type:LOAD_USER_FAIL,
-//             payload:error.response.data.message
-//         })
-//     }
-// }
+    } catch (error) {
+        dispatch({
+            type:LOAD_USER_FAIL,
+            payload:error.response.data.message
+        })
+    }
+}
 
 export const cleanErrors = ()=> async (dispatch) =>{
     dispatch({
