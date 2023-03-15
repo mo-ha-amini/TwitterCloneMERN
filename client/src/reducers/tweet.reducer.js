@@ -7,25 +7,28 @@ import {
     CLEAR_ERRORS,
 } from '../constants/tweet.constant'
 
-export const newTweetReducer = (state = { product: {} }, action) => {
+export const newTweetReducer = (state = { tweet: {} }, action) => {
     switch (action.type) {
 
         case NEW_TWEET_REQUEST:
             return {
                 ...state,
-                loading: true
+                loading: true,
+                success:false
             }
 
         case NEW_TWEET_SUCCESS:
             return {
+                success: true,
                 loading: false,
-                product: action.payload.product
+                tweet: action.payload.tweet
             }
 
         case NEW_TWEET_FAIL:
             return {
                 ...state,
-                error: action.payload
+                error: action.payload,
+                success:false
             }
 
         case NEW_TWEET_RESET:

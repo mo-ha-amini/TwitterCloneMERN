@@ -2,10 +2,13 @@
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { authReducer } from './reducers/user.reducer'
+import { newTweetReducer } from './reducers/tweet.reducer'
 
 const reducer = combineReducers({  
 
     auth: authReducer,
+
+    newTweet: newTweetReducer,
     
 })
  

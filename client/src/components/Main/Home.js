@@ -17,18 +17,14 @@ function Home() {
     (state) => state.auth
   );
 
-  
-
   useEffect(() => {
     if (error) {
       console.log(error);
     }
 
+  
     dispatch(loadUser());
   }, [dispatch, error]);
-
-//   console.log("user: ", user);
-//   console.log("isAuthenticated: ", isAuthenticated);
 
   return (
     <div>

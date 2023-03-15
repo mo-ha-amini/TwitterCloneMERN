@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import {
     NEW_TWEET_REQUEST,
     NEW_TWEET_SUCCESS,
@@ -8,7 +10,7 @@ import {
 } from '../constants/tweet.constant'
 
 
-export const newTweet = (productData) => async (dispatch) => {
+export const newTweet = (tweetData) => async (dispatch) => {
     try {
 
         dispatch({ type: NEW_TWEET_REQUEST })
@@ -19,7 +21,7 @@ export const newTweet = (productData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post(`/admin/product/new`, productData, config)
+        const { data } = await axios.post(`/getTweets`, tweetData, config)
 
         dispatch({ 
             type: NEW_TWEET_SUCCESS,

@@ -15,28 +15,29 @@ const {
 
 } = require('../controllers/tweet.controller')
 
+const { isAuthenticatedUser } = require('../middleware/auth')
 
-router.route('/feed').get(auth(), getFeedsTweets);
+// router.route('/feed').get(auth(), getFeedsTweets);
 
-router
-  .route('/like/:tweetId')
-  .post(auth(), likeTweet)
-  .delete(auth(), unlikeTweet);
+// router
+//   .route('/like/:tweetId')
+//   .post(auth(), likeTweet)
+//   .delete(auth(), unlikeTweet);
 
-router
-  .route('/retweet/:tweetId')
-  .post(auth(), retweet)
-  .delete(auth(), unRetweet);
+// router
+//   .route('/retweet/:tweetId')
+//   .post(auth(), retweet)
+//   .delete(auth(), unRetweet);
 
 router
   .route('/getTweets')
   .get(getTweets)
-  .post(auth(), createTweet);
+  .post(isAuthenticatedUser ,createTweet);
 
-router
-  .route('/:tweetId')
-  .get(getTweet)
-  .patch(auth(), updateTweet)
-  .delete(auth(), deleteTweet);
+// router
+//   .route('/:tweetId')
+//   .get(getTweet)
+//   .patch(auth(), updateTweet)
+//   .delete(auth(), deleteTweet);
 
 module.exports = router;

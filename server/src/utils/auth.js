@@ -8,7 +8,7 @@ const generateAccessToken = (userId) => {
   };
 
   return jwt.sign(payload, config.jwt.secret, {
-    expiresIn: Number(config.jwt.expires || 3600),
+    expiresIn: config.jwt.expires || '24h',
   });
 };
 
