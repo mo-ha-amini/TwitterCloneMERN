@@ -3,6 +3,7 @@ const { ErrorHandler } = require('../utils/error')
 const User = require('../models/user.model')
 const Profile = require('../models/profile.model')
 const Tweet = require('../models/tweet.model')
+const APIFeatures = require('../utils/apiFeatures')
 
 
 exports.getUser = async (req, res)=>{
@@ -18,8 +19,20 @@ exports.getUser = async (req, res)=>{
     })
 }
 
+exports.searchUser = async(req, res)=>{
+
+    const apiFeatures = new APIFeatures(User.find(), req.query).search()
+    let users = await apiFeatures.query
+
+    res.status(200).json({
+        success: true,
+        count:users.length,
+        users
+    })
+}
+
 exports.loadUser = async(req,res,next)=>{
-    
+
     const user = await User.findById(req.user.id)
 
     res.status(200).json({

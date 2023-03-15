@@ -7,7 +7,7 @@ const cors = require('cors');
 const passport = require('passport');
 const config = require('./config/keys');
 var cookies = require("cookie-parser");
-const { jwtStrategy } = require('./config/passport');
+// const { jwtStrategy } = require('./config/passport');
 const auth = require('./routers/auth.route')
 const user = require('./routers/user.route')
 const tweet = require('./routers/tweet.route')
@@ -34,8 +34,8 @@ app.use(user)
 app.use(tweet)
 
 // jwt authentication
-app.use(passport.initialize());
-passport.use('jwt', jwtStrategy);
+// app.use(passport.initialize());
+// passport.use('jwt', jwtStrategy);
 
 // Handle routes
 // app.use('/api', getRoutes());
