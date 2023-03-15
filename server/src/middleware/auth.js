@@ -10,12 +10,15 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req ,res,next)=>{
     const {token} = req.cookies
 
     if(!token){
-        return next(new ErrorHandler('.برای دسترسی به این قسمت ابتدا به حساب کاربری خود وارد شوید',401))
+        return next(new ErrorHandler('You have to login first!!',401))
     }
 
-    const decoded = jwt.verify(token,config.env.JWT_SECRET)
+    const decoded = jwt.verify(token, config.jwt.secret)
+    // console.log('req.user : ',decoded)
 
-    req.user = await User.findById(decoded.id)
+    req.user = await User.findById(decoded.sub)
+    
+    
 
     next()
 

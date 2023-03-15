@@ -26,9 +26,9 @@ function Register() {
 
     useEffect(()=>{
 
-        // if(isAuthenticated){
-        //     navigate('/')
-        // }
+        if(isAuthenticated){
+            navigate('/')
+        }
 
         if(error){
             console.log('error')

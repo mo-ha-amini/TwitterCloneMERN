@@ -15,6 +15,9 @@ module.exports = {
     },
     jwt: {
       secret: process.env.JWT_SECRET,
-      expires: process.env.JWT_EXPIRES,
+      expires: process.env.JWT_EXPIRES_TIME,
     },
+    cookie:{
+      expire: process.env.COOKIE_EXPIRES_TIME
+    }
   };

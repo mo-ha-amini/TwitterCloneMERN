@@ -6,9 +6,11 @@ const compression = require('compression');
 const cors = require('cors');
 const passport = require('passport');
 const config = require('./config/keys');
+var cookies = require("cookie-parser");
 const { jwtStrategy } = require('./config/passport');
 const auth = require('./routers/auth.route')
 const user = require('./routers/user.route')
+const tweet = require('./routers/tweet.route')
 // const { getRoutes } = require('./routes');
 // const testDataRoutes = require('./routes/testDataRoutes');
 const { handleNotFound, handleError } = require('./utils/error');
@@ -16,9 +18,10 @@ const { handleNotFound, handleError } = require('./utils/error');
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(compression());
+app.use(cookies());
 
 if (config.env !== 'test') {
   app.use(morgan('dev'));
@@ -28,6 +31,7 @@ app.use(cors());
 app.options('*', cors());
 app.use(auth)
 app.use(user)
+app.use(tweet)
 
 // jwt authentication
 app.use(passport.initialize());
