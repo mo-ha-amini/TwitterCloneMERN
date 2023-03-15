@@ -11,7 +11,7 @@ function Feed({ user, tweets }) {
         <TweetBox key={user._id} user={user}/>
 
         { tweets && tweets.map(tweet =>(
-            <Post key={tweet._id} post={tweet} col={4}/>
+            <Post key={tweet._id} post={tweet}/>
         ))}
 
     </div>
