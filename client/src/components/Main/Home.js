@@ -23,7 +23,7 @@ function Home() {
     if (error) {
       console.log(error);
     }
-
+ 
     if (feedError) {
       console.log(feedError);
     }
