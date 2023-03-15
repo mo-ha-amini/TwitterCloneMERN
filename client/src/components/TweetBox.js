@@ -12,8 +12,7 @@ import { useNavigate } from 'react-router-dom'
 function TweetBox({ user }) {
 
   const {success, loading, error} = useSelector(state=> state.newTweet)
-  console.log('success',success)
-
+ 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -24,7 +23,8 @@ function TweetBox({ user }) {
         console.log('error')
         // dispatch(cleanErrors())
     }
-  } , [dispatch, success, error] )
+
+  } , [dispatch, error] )
 
   const submitHandler = (e) =>{
     e.preventDefault();
@@ -32,7 +32,11 @@ function TweetBox({ user }) {
     let tweetData ={ text } 
 
     dispatch(newTweet(tweetData))
-    {console.log(tweetData)}
+    if(success === true) {
+      navigate('/')
+
+    }
+    
   }
 
   const onChange = e =>{

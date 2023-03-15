@@ -17,7 +17,7 @@ const {
 
 const { isAuthenticatedUser } = require('../middleware/auth')
 
-// router.route('/feed').get(auth(), getFeedsTweets);
+router.route('/feed').get(isAuthenticatedUser, getFeedsTweets);
 
 // router
 //   .route('/like/:tweetId')
