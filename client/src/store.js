@@ -2,14 +2,22 @@
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { authReducer } from './reducers/user.reducer'
+<<<<<<< HEAD
 import { newTweetReducer, FeedsTweetReducer } from './reducers/tweet.reducer'
+=======
+import { newTweetReducer,feedTweetsReducer } from './reducers/tweet.reducer'
+>>>>>>> fixfeed
 
 const reducer = combineReducers({  
 
     auth: authReducer,
 
     newTweet: newTweetReducer,
+<<<<<<< HEAD
     feedtweets: FeedsTweetReducer,
+=======
+    feedTweets: feedTweetsReducer,
+>>>>>>> fixfeed
     
 })
  

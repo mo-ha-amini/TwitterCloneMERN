@@ -34,7 +34,11 @@ const getFeedsTweets = async (req, res) =>{
         ],
     }, options);
 
+<<<<<<< HEAD
     console.log('tweets', tweets)
+=======
+    // console.log('tweets', tweets)
+>>>>>>> fixfeed
     res.status(200).json(tweets);
 }
 
