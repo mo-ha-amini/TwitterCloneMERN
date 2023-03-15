@@ -34,7 +34,7 @@ const getFeedsTweets = async (req, res) =>{
         ],
     }, options);
 
-    // console.log('tweets', tweets)
+    console.log('tweets', tweets)
     res.status(200).json(tweets);
 }
 

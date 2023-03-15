@@ -2,11 +2,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import defaultImg from "../../assets/default.png";
+
 import { loadUser } from "../../actions/user.action";
 import { feedTweets } from '../../actions/tweets.action'
 import Layout from "../layout";
-import Feed from "../Feed";
+
 import Post from "../Post";
 import TweetBox from '../TweetBox'
 
@@ -34,6 +34,7 @@ function Home() {
     dispatch(feedTweets())
   }, [dispatch, error, feedError]);
 
+  console.log(tweets.results)
   return (
     <div>
       <Fragment>
