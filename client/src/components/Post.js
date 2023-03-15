@@ -6,47 +6,6 @@ import { FiShare } from "@react-icons/all-files/fi/FiShare";
 import DeafaultImg from "../assets/default.png";
 // import Posts from '../api/post.json';
 
-<<<<<<< HEAD
-function Post({ Posts }) {
-  return (
-    <>
-      {Posts.map((post) => (
-        <div key={post._id}>
-          <div className="post">
-            <div className="post__avatar">
-              {/* <img src={post.author.avatar} alt="" /> */}
-              {post.author.avatar ? (
-                <img src={post.author.avatar} />
-              ) : (
-                <img src={DeafaultImg} />
-              )}
-            </div>
-            <div className="post__body">
-              <div className="post__header">
-                <div className="post__headerText">
-                  <h3>
-                    {post.author.name}
-                    <span className="post__headerSpecial">
-                      @{post.author.username}
-                    </span>
-                    <span>
-                      {(Date.now() - Date.parse(post.createdAt)) / 1000 / 60}{" "}
-                      min ago
-                    </span>
-                  </h3>
-                </div>
-                <div className="post__headerDescription">
-                  <p>{post.text}</p>
-                </div>
-              </div>
-              {post.photo && <img src={post.photo} alt="" />}
-              <div className="post__footer">
-                <FaRegComment className="post__iconblue" />
-                <AiOutlineRetweet className="post__icongreen" />
-                <BiHeart className="post__iconred" />
-                <FiShare className="post__iconblue" />
-              </div>
-=======
 function Post({ post }) {
   function getTime(time) {
     const nowTime = Date.now();
@@ -89,12 +48,11 @@ function Post({ post }) {
                 <span className="post__headerSpecial">
                   {post.author.username}
                 </span>
-                {/* <span>{getTime(post.createdAt)}</span> */}
+                <span>{getTime(post.createdAt)}</span>
               </h3>
             </div>
             <div className="post__headerDescription">
               <p>{post.text}</p>
->>>>>>> fixfeed
             </div>
           </div>
           {post.photo && <img src={post.photo} alt="" />}
