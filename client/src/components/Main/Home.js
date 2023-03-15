@@ -32,7 +32,7 @@ function Home() {
     dispatch(feedTweets())
   }, [dispatch, error, feedError]);
 
-  console.log(tweets.results)
+  // console.log(tweets.results)
   return (
     <div>
       <Fragment>
