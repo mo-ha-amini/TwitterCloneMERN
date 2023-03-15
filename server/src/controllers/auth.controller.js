@@ -34,7 +34,6 @@ exports.loginUser = async (req, res) => {
   
     const user = await User.findByCredentionals(username, password, isEmail);
     // const token = await user.generateAuthToken();
-  
-    console.log(user)
+
     sendToken(user, 200, res)
   };

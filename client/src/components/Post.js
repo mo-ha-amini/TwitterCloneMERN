@@ -46,7 +46,7 @@ function Post({ post }) {
               <h3>
                 {post.author.name}
                 <span className="post__headerSpecial">
-                  {post.author.username}
+                  @{post.author.username}
                 </span>
                 <span>{getTime(post.createdAt)}</span>
               </h3>

@@ -11,9 +11,20 @@ exports.getUser = async (req, res)=>{
     const options = pick(req.query, ['sortBy', 'limit', 'page'])
 
     const users = await User.paginate(filters, options)
+    console.log(users)
 
     res.status(201).json({
         user:users
+    })
+}
+
+exports.loadUser = async(req,res,next)=>{
+    
+    const user = await User.findById(req.user.id)
+
+    res.status(200).json({
+        success : true,
+        user
     })
 }
 

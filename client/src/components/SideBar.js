@@ -4,7 +4,7 @@ import Menu from './Menu';
 import DeafaultImg from '../assets/default.png'
 import { logoutUser } from '../actions/user.action'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {IoMdLogOut} from '@react-icons/all-files/io/IoMdLogOut'
 
 const SideBar = ({ user }) => {
@@ -40,9 +40,9 @@ const SideBar = ({ user }) => {
               </div>
               
             </div>
-            <button onClick={logoutHandler}>
+            <Link to={'/login'} onClick={logoutHandler}>
               Logout
-            </button>
+            </Link>
       </div>
     </div>
   );
