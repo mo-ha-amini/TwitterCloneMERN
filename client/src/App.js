@@ -3,7 +3,8 @@ import {BrowserRouter as Router,Routes, Route } from 'react-router-dom'
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login'
 import Home from './components/Main/Home.js';
-import Profile from './components/Main/Profile';
+import Profile from './components/Profile';
+import UserProfile from './components/Main/UserProfile';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/profile" element={<Profile/>} />
-
+          <Route path="/user/:username" element={<UserProfile/>} />
 
         </Routes>
       </div>

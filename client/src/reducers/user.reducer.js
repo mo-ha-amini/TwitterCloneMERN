@@ -14,6 +14,9 @@ import {
   SEARCH_USER_REQUEST,
   SEARCH_USER_SUCCESS,
   SEARCH_USER_FAIL,
+  FIND_USERNAME_REQUEST,
+  FIND_USERNAME_SUCCESS,
+  FIND_USERNAME_FAIL,
   CLEAR_ERRORS,
 } from "../constants/user.constant";
 
@@ -87,45 +90,81 @@ export const authReducer = (state = { user: {} }, action) => {
   }
 };
 
-export const searchUserReducer = (state = { users:{} } , action)=>{
-    switch(action.type){
-        
-        case SEARCH_USER_REQUEST:
-            return{
-                ...state,
-                loading:true,
-                success:false,
-            }
+export const searchUserReducer = (state = { users: {} }, action) => {
+  switch (action.type) {
+    case SEARCH_USER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
 
-       
-        case SEARCH_USER_SUCCESS:
-            return{
-                ...state,
-                loading:false,
-                count:action.payload.count,
-                users:action.payload.users,
-                success:true,
-            }
-       
-        case SEARCH_USER_FAIL:
-            return{
-                ...state,
-                loading:false,
-                error:action.payload,
-                success:false,
-                users:null
-            }
-        
-        case CLEAR_ERRORS:
-            return {
-                ...state,
-                error: null
-            }
+    case SEARCH_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        count: action.payload.count,
+        users: action.payload.users,
+        success: true,
+      };
 
-        default:
-            return{
-                ...state
-            }
-    }
+    case SEARCH_USER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        success: false,
+        users: null,
+      };
 
-}
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return {
+        ...state,
+      };
+  }
+};
+
+export const findByUsernamereducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case FIND_USERNAME_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
+
+    case FIND_USERNAME_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        profile: action.payload.profile,
+        success: true,
+      };
+
+    case FIND_USERNAME_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        success: false,
+        profile: null,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return {
+        ...state,
+      };
+  }
+};

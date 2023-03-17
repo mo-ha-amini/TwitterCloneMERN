@@ -11,6 +11,7 @@ var cookies = require("cookie-parser");
 const auth = require('./routers/auth.route')
 const user = require('./routers/user.route')
 const tweet = require('./routers/tweet.route')
+const profile = require('./routers/profile.route')
 // const { getRoutes } = require('./routes');
 // const testDataRoutes = require('./routes/testDataRoutes');
 const { handleNotFound, handleError } = require('./utils/error');
@@ -32,6 +33,7 @@ app.options('*', cors());
 app.use(auth)
 app.use(user)
 app.use(tweet)
+app.use(profile)
 
 // jwt authentication
 // app.use(passport.initialize());

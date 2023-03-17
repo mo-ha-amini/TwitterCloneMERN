@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BiSearchAlt2 } from "@react-icons/all-files/bi/BiSearchAlt2";
 import { FiMoreHorizontal } from "@react-icons/all-files/fi/FiMoreHorizontal";
 import { FiSettings } from "@react-icons/all-files/fi/FiSettings";
@@ -56,10 +56,12 @@ function Widgets() {
                 </div>
 
                 {users.map((user) => (
+                  <Link to={`/user/${user.username}`}>
                   <div
                     className="widgest__top"
                     style={{ marginBottom: "15px" }}
                   >
+                    
                     {user.avatar ? (
                       <img src={user.avatar} />
                     ) : (
@@ -69,6 +71,7 @@ function Widgets() {
                           height: "40px",
                           width: "40px",
                           marginTop: "11px",
+                          marginRight:'10px',
                           borderRadius: "50%",
                         }}
                       />
@@ -80,7 +83,9 @@ function Widgets() {
                     <div className="widgest__more">
                       <FiMoreHorizontal />
                     </div>
+                    
                   </div>
+                  </Link>
                 ))}
                 {/* <Button /> */}
               </div>

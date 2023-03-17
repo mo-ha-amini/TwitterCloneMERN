@@ -1,14 +1,15 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUser } from "../../actions/user.action";
-import { feedTweets } from "../../actions/tweets.action";
-import Layout from "../layout";
-import Post from "../Post";
-import banner from "../../assets/imgs/jaun-banner.jpg";
-import profilePic from "../../assets/imgs/juan-pic.jpg";
+import { loadUser } from "../actions/user.action";
+import { feedTweets } from "../actions/tweets.action";
+import Layout from "./layout";
+import Post from "./Post";
+import banner from "../assets/imgs/jaun-banner.jpg";
+import profilePic from "../assets/imgs/juan-pic.jpg";
+import DeafaultImg from '../assets/default.png'
 
-function Profile() {
+function Profile({ profile }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,16 +37,16 @@ function Profile() {
     dispatch(feedTweets());
   }, [dispatch, error, feedError]);
 
-  //   console.log('user: ',user);
+    console.log('user: ',user);
   //   console.log('tweets',tweets)
 
   return (
     <Fragment>
-      {user && tweets && (
+      {profile && user && tweets && (
         <Layout user={user}>
           <div className="feed">
             <div className="feed__header">
-              <h3>Home</h3>
+              <h3>{profile.user.name}</h3>
             </div>
 
             <div>
@@ -64,14 +65,34 @@ function Profile() {
                     borderRadius: "50%",
                   }}
                 >
-                  <img
+                  {profile.user.avatar ? (
+                    <img
+                      src={profile.user.avatar}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={DeafaultImg}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )}
+
+                  {/* <img
                     src={profilePic}
                     style={{
                       width: "100%",
                       height: "100%",
                       borderRadius: "50%",
                     }}
-                  />
+                  /> */}
                 </div>
 
                 <div
@@ -123,8 +144,8 @@ function Profile() {
                 </div>
 
                 <div style={{ marginTop: "35px", marginBottom: "25px" }}>
-                  <h3>💚🚀JuanDC: Juan David Castro ⚡️👨‍💻 ⚛️</h3>
-                  <p style={{ color: "gray" }}>@fjuandc</p>
+                  <h3>{profile.user.name}</h3>
+                  <p style={{ color: "gray" }}>@{profile.user.username}</p>
                   <p style={{ marginBottom: "20px" }}>
                     📚🍏 The Eternal Student
                     <br />
@@ -280,10 +301,10 @@ function Profile() {
             </ul>
             <hr />
 
-            {tweets.results &&
+            {/* {tweets.results &&
               tweets.results.map((tweet) => (
                 <Post key={tweet._id} post={tweet} />
-              ))}
+              ))} */}
           </div>
         </Layout>
       )}

@@ -1,7 +1,7 @@
 const { pick } = require('lodash')
 const Profile = require('../models/profile.model')
 const User = require('../models/user.model')
-const Tweet = reqiure('../models/tweet.model')
+const Tweet = require('../models/tweet.model')
 const { ErrorHandler } =  require('../utils/error')
 
 exports.getProfile = async (req, res)=>{
@@ -17,6 +17,23 @@ exports.getProfile = async (req, res)=>{
     }
 
     res.json({ profile })
+}
+
+exports.getProfileByUsername = async (req, res)=>{
+
+    const {username} = req.params
+
+    const user = await User.findOne({username})
+
+    const profile = await Profile.findOne({
+        user: user._id,
+    }).populate('user', ['name', 'username', 'avatar'])
+
+    if(!profile){
+        throw new ErrorHandler(404, 'Profile not Found')
+    }
+
+    res.status(200).json({ profile })
 }
 
 exports.getProfiles = async (req, res)=>{

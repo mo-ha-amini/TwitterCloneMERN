@@ -15,6 +15,9 @@ import {
   SEARCH_USER_REQUEST,
   SEARCH_USER_SUCCESS,
   SEARCH_USER_FAIL,
+  FIND_USERNAME_REQUEST,
+  FIND_USERNAME_SUCCESS,
+  FIND_USERNAME_FAIL,
   CLEAR_ERRORS,
 } from "../constants/user.constant";
 
@@ -121,6 +124,24 @@ export const searchUser = (keyword='') => async(dispatch)=>{
           payload: error.response.data.message,
         });
       }
+}
+
+export const findByUsername = (username) => async(dispatch)=>{
+  try {
+      dispatch({ type: FIND_USERNAME_REQUEST });
+  
+      const { data } = await axios.get(`/profile/${username}`);
+  
+      dispatch({
+        type: FIND_USERNAME_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: FIND_USERNAME_FAIL,
+        payload: error.response.data.message,
+      });
+    }
 }
 
 export const cleanErrors = () => async (dispatch) => {

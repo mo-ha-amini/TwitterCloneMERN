@@ -48,10 +48,24 @@ exports.getUserById= async (req, res)=>{
     const user = await User.findById(userId)
 
     if(!user){
-        throw new ErrorHandler(400, 'Email already taken!')
+        throw new ErrorHandler(400, ' user not found!')
     }
 
     res.json({ user })
+}
+
+exports.getUserByUsername= async (req, res)=>{
+
+    const {username} = req.params
+
+    const user = await User.findOne({username})
+
+    if(!user){
+        throw new ErrorHandler(400, ' user not found!')
+    }
+    // console.log(user)
+
+    res.status(200).json({ user })
 }
 
 exports.createUser = async (req, res)=>{
