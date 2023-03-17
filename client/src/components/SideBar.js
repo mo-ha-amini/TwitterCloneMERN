@@ -35,7 +35,7 @@ const SideBar = ({ user }) => {
             {user.avatar ? (<img src={user.avatar} style={{borderRadius: '50%'}}/>)
                          : (<img src={DeafaultImg} style={{borderRadius: '50%'}}/>) }
               <div className="follow__user" >
-                <h4>{user.name}</h4>
+                <h5>{user.name}</h5>
                 <span>@{user.username}</span>
               </div>
               
