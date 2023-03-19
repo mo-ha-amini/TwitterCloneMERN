@@ -31,6 +31,7 @@ const SideBar = ({ user }) => {
       <button className="sideBar__Btn">Tweet</button>
 
       <div className="follow" style={{marginTop: '20px'}}>
+        <Link to={`/me`}>
             <div className="follow__avatar">
             {user.avatar ? (<img src={user.avatar} style={{borderRadius: '50%'}}/>)
                          : (<img src={DeafaultImg} style={{borderRadius: '50%'}}/>) }
@@ -40,6 +41,7 @@ const SideBar = ({ user }) => {
               </div>
               
             </div>
+            </Link>
             <Link to={'/login'} onClick={logoutHandler}>
               Logout
             </Link>

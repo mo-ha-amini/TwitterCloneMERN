@@ -23,8 +23,13 @@ function UserProfile() {
 
   return (
     <Fragment>
-      <Profile profile={profile}/>
-    </Fragment>
+    {profile ? (
+    <Profile profile={profile}/>) : (
+      <Fragment>
+        <h4>error: Profile not found! </h4>
+      </Fragment>
+    )}
+  </Fragment>
   );
 }
 

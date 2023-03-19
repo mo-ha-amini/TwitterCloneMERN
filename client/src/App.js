@@ -5,6 +5,7 @@ import Login from './components/Auth/Login'
 import Home from './components/Main/Home.js';
 import Profile from './components/Profile';
 import UserProfile from './components/Main/UserProfile';
+import MyProfile from './components/Main/MyProfile';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
           <Route path="/register" element={<Register/>} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/user/:username" element={<UserProfile/>} />
+          <Route path="/me" element={<MyProfile/>} />
+
 
         </Routes>
       </div>

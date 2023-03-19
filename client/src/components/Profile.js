@@ -7,7 +7,7 @@ import Layout from "./layout";
 import Post from "./Post";
 import banner from "../assets/imgs/jaun-banner.jpg";
 import profilePic from "../assets/imgs/juan-pic.jpg";
-import DeafaultImg from '../assets/default.png'
+import DeafaultImg from "../assets/default.png";
 
 function Profile({ profile }) {
   const dispatch = useDispatch();
@@ -35,10 +35,23 @@ function Profile({ profile }) {
 
     dispatch(loadUser());
     dispatch(feedTweets());
+
+    console.log("user: ", user._id);
+    console.log("profile", profile.user._id);
+    //   console.log('tweets',tweets)
+    if (user._id === profile.user._id) {
+      console.log("true");
+      console.log(user._id);
+      console.log(profile.user._id);
+    }
   }, [dispatch, error, feedError]);
 
-    console.log('user: ',user);
   //   console.log('tweets',tweets)
+  // if(user._id === profile.user._id){
+  //   console.log('true')
+  //   console.log(user._id)
+  //   console.log(profile.user._id)
+  // }
 
   return (
     <Fragment>
@@ -122,24 +135,38 @@ function Profile({ profile }) {
                         fontSize: "20px",
                         fontWeight: "bold",
                       }}
-                    >
-                      ...
+                    >...
                     </p>
                   </div>
                   <button
-                    style={{
-                      background: "black",
-                      color: "white",
-                      fontSize: "16px",
-                      width: "80px",
-                      height: "30px",
-                      borderRadius: "20px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
+                    style={
+                      user._id === profile.user._id
+                        ? {
+                            background: "white",
+                            color: "black",
+                            fontSize: "16px",
+                            width: "80px",
+                            height: "30px",
+                            borderRadius: "20px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            border: "1px solid #ecf1f2",
+                          }
+                        : {
+                            background: "black",
+                            color: "white",
+                            fontSize: "16px",
+                            width: "80px",
+                            height: "30px",
+                            borderRadius: "20px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }
+                    }
                   >
-                    Follow
+                    {user._id === profile.user._id ? "Edit" : "Follow"}
                   </button>
                 </div>
 
