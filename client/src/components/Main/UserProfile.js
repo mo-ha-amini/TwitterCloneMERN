@@ -19,8 +19,6 @@ function UserProfile() {
     dispatch(findByUsername(params.username))
   }, [error, dispatch, params]);
 
-//   console.log(profile)
-
   return (
     <Fragment>
     {profile ? (

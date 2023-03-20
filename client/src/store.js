@@ -1,18 +1,22 @@
 ﻿import { createStore , combineReducers , applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
-import { authReducer , searchUserReducer, findByUsernamereducer} from './reducers/user.reducer'
+import { authReducer , searchUserReducer, findByUsernamereducer, findProfileByIdReducer} from './reducers/user.reducer'
 import { newTweetReducer,feedTweetsReducer } from './reducers/tweet.reducer'
+import { followReducer } from './reducers/profile.reducer'
 
 const reducer = combineReducers({  
 
-    auth: authReducer,
+    auth: authReducer, 
 
     searchUser:searchUserReducer,
     findByUsername:findByUsernamereducer,
+    findProfileById:findProfileByIdReducer,
 
     newTweet: newTweetReducer,
     feedTweets: feedTweetsReducer,
+
+    follow : followReducer,
     
 })
  

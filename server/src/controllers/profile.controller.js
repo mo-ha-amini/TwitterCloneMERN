@@ -6,7 +6,8 @@ const { ErrorHandler } =  require('../utils/error')
 
 exports.getProfile = async (req, res)=>{
 
-    const {userId} = req.params
+    const userId= req.params.id
+    console.log(userId)
 
     const profile = await Profile.findOne({
         user: userId,
@@ -103,7 +104,7 @@ exports.followProfile = async(req, res)=> {
         throw new ErrorHandler(404, 'Profile does not exist')
     }
 
-    if(!authUserProfile.isFollowing(userId)){
+    if(authUserProfile.isFollowing(userId)){
         throw new ErrorHandler(404, 'You already follow that profile')
     }
 

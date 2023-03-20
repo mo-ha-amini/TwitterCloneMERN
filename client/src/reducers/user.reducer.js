@@ -17,6 +17,9 @@ import {
   FIND_USERNAME_REQUEST,
   FIND_USERNAME_SUCCESS,
   FIND_USERNAME_FAIL,
+  FIND_PROFILEBYID_REQUEST,
+  FIND_PROFILEBYID_SUCCESS,
+  FIND_PROFILEBYID_FAIL,
   CLEAR_ERRORS,
 } from "../constants/user.constant";
 
@@ -148,6 +151,45 @@ export const findByUsernamereducer = (state = { user: {} }, action) => {
       };
 
     case FIND_USERNAME_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        success: false,
+        profile: null,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return {
+        ...state,
+      };
+  }
+};
+
+export const findProfileByIdReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case FIND_PROFILEBYID_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
+
+    case FIND_PROFILEBYID_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        authprofile: action.payload.profile,
+        success: true,
+      };
+
+    case FIND_PROFILEBYID_FAIL:
       return {
         ...state,
         loading: false,

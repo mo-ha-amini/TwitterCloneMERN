@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUser } from "../actions/user.action";
+import { loadUser, findProfileById } from "../actions/user.action";
 import { feedTweets } from "../actions/tweets.action";
+import { follow } from "../actions/profile.action";
 import Layout from "./layout";
 import Post from "./Post";
 import banner from "../assets/imgs/jaun-banner.jpg";
@@ -10,12 +11,22 @@ import profilePic from "../assets/imgs/juan-pic.jpg";
 import DeafaultImg from "../assets/default.png";
 
 function Profile({ profile }) {
+  const [followButton, setFollowButton] = useState("Follow");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { loading, isAuthenticated, user, error } = useSelector(
     (state) => state.auth
   );
+
+  const { profile: profileFollow } = useSelector((state) => state.follow);
+
+  const {
+    loading: profileLoading,
+    error: profileError,
+    authprofile,
+  } = useSelector((state) => state.findProfileById);
 
   const {
     success,
@@ -35,27 +46,21 @@ function Profile({ profile }) {
 
     dispatch(loadUser());
     dispatch(feedTweets());
-
-    console.log("user: ", user._id);
-    console.log("profile", profile.user._id);
-    //   console.log('tweets',tweets)
-    if (user._id === profile.user._id) {
-      console.log("true");
-      console.log(user._id);
-      console.log(profile.user._id);
-    }
+    dispatch(findProfileById(user._id));
   }, [dispatch, error, feedError]);
 
-  //   console.log('tweets',tweets)
-  // if(user._id === profile.user._id){
-  //   console.log('true')
-  //   console.log(user._id)
-  //   console.log(profile.user._id)
+  // if (authprofile && authprofile.following.includes(profile.user._id)) {
+  //   setFollowButton("Unfollow");
   // }
+
+  const followUser = () => {
+    dispatch(follow(profile.user._id));
+    setFollowButton("Unfollow");
+  };
 
   return (
     <Fragment>
-      {profile && user && tweets && (
+      {authprofile && profile && user && tweets && (
         <Layout user={user}>
           <div className="feed">
             <div className="feed__header">
@@ -135,10 +140,68 @@ function Profile({ profile }) {
                         fontSize: "20px",
                         fontWeight: "bold",
                       }}
-                    >...
+                    >
+                      ...
                     </p>
                   </div>
-                  <button
+                  {user._id === profile.user._id ? (
+                    <button
+                      style={{
+                        background: "white",
+                        color: "black",
+                        fontSize: "16px",
+                        width: "80px",
+                        height: "30px",
+                        borderRadius: "20px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        border: "1px solid #ecf1f2",
+                      }}
+                    >
+                      Edit
+                    </button>
+                  ) : (
+                    <Fragment>
+                      {authprofile.following.includes(profile.user._id) ? (
+                        <button
+                          style={{
+                            background: "white",
+                            color: "red",
+                            fontSize: "16px",
+                            width: "80px",
+                            height: "30px",
+                            borderRadius: "20px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            border: "1px solid #ecf1f2",
+                          }}
+                          // onClick={followUser}
+                        >
+                          Unfollow
+                        </button>
+                      ) : (
+                        <button
+                          style={{
+                            background: "black",
+                            color: "white",
+                            fontSize: "16px",
+                            width: "80px",
+                            height: "30px",
+                            borderRadius: "20px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                          onClick={followUser}
+                        >
+                          Follow
+                        </button>
+                      )}
+                    </Fragment>
+                  )}
+                  {/* <button
                     style={
                       user._id === profile.user._id
                         ? {
@@ -167,12 +230,54 @@ function Profile({ profile }) {
                     }
                   >
                     {user._id === profile.user._id ? "Edit" : "Follow"}
-                  </button>
+                  </button> */}
                 </div>
 
                 <div style={{ marginTop: "35px", marginBottom: "25px" }}>
                   <h3>{profile.user.name}</h3>
+
                   <p style={{ color: "gray" }}>@{profile.user.username}</p>
+                  <ul style={{ display: "flex", padding: "0" }}>
+                    <li
+                      style={{
+                        width: " 33%",
+                        height: "40px",
+                        transition: "all .3s",
+                      }}
+                    >
+                      <h5
+                        style={{
+                          color: " black",
+                          display: "flex",
+                          alignItems: "center",
+                          height: " 100%",
+                          justifyContent: "left",
+                        }}
+                      >
+                        {authprofile.following.length} Following
+                      </h5>
+                    </li>
+
+                    <li
+                      style={{
+                        width: " 33%",
+                        height: "40px",
+                        transition: "all .3s",
+                      }}
+                    >
+                      <h5
+                        style={{
+                          color: " black",
+                          display: "flex",
+                          alignItems: "center",
+                          height: " 100%",
+                          justifyContent: "left",
+                        }}
+                      >
+                        {authprofile.followers.length} Followers
+                      </h5>
+                    </li>
+                  </ul>
                   <p style={{ marginBottom: "20px" }}>
                     📚🍏 The Eternal Student
                     <br />
@@ -204,7 +309,7 @@ function Profile({ profile }) {
                         marginRight: "12px",
                       }}
                     >
-                      <i class="fa-solid fa-location-dot"></i>
+                      <i className="fa-solid fa-location-dot"></i>
                       <p>Bogotá, DC, Colombia</p>
                     </div>
 
@@ -217,7 +322,7 @@ function Profile({ profile }) {
                         marginRight: "12px",
                       }}
                     >
-                      <i class="fa-solid fa-link"></i>
+                      <i className="fa-solid fa-link"></i>
                       <a href="https://platzi.com/profes/juandc/">
                         https://platzi.com/profes/juandc/
                       </a>
@@ -232,7 +337,7 @@ function Profile({ profile }) {
                         marginRight: "12px",
                       }}
                     >
-                      <i class="fa-solid fa-calendar"></i>
+                      <i className="fa-solid fa-calendar"></i>
                       <p>Joined May 2016</p>
                     </div>
                   </div>

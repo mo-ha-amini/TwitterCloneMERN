@@ -18,6 +18,9 @@ import {
   FIND_USERNAME_REQUEST,
   FIND_USERNAME_SUCCESS,
   FIND_USERNAME_FAIL,
+  FIND_PROFILEBYID_REQUEST,
+  FIND_PROFILEBYID_SUCCESS,
+  FIND_PROFILEBYID_FAIL,
   CLEAR_ERRORS,
 } from "../constants/user.constant";
 
@@ -108,41 +111,61 @@ export const logoutUser = () => async (dispatch) => {
   }
 };
 
-export const searchUser = (keyword='') => async(dispatch)=>{
+export const searchUser =
+  (keyword = "") =>
+  async (dispatch) => {
     try {
-        dispatch({ type: SEARCH_USER_REQUEST });
-    
-        const { data } = await axios.get(`/searchUser?keyword=${keyword}`);
-    
-        dispatch({
-          type: SEARCH_USER_SUCCESS,
-          payload: data,
-        });
-      } catch (error) {
-        dispatch({
-          type: SEARCH_USER_FAIL,
-          payload: error.response.data.message,
-        });
-      }
-}
+      dispatch({ type: SEARCH_USER_REQUEST });
 
-export const findByUsername = (username) => async(dispatch)=>{
-  try {
-      dispatch({ type: FIND_USERNAME_REQUEST });
-  
-      const { data } = await axios.get(`/profile/${username}`);
-  
+      const { data } = await axios.get(`/searchUser?keyword=${keyword}`);
+
       dispatch({
-        type: FIND_USERNAME_SUCCESS,
+        type: SEARCH_USER_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: FIND_USERNAME_FAIL,
+        type: SEARCH_USER_FAIL,
         payload: error.response.data.message,
       });
     }
-}
+  };
+
+export const findByUsername = (username) => async (dispatch) => {
+  try {
+    dispatch({ type: FIND_USERNAME_REQUEST });
+
+    const { data } = await axios.get(`/profile/${username}`);
+
+    dispatch({
+      type: FIND_USERNAME_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FIND_USERNAME_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const findProfileById = (userId) => async (dispatch) => {
+  try {
+    dispatch({ type: FIND_PROFILEBYID_REQUEST });
+
+    const { data } = await axios.get(`/profileById/${userId}`);
+
+    dispatch({
+      type: FIND_PROFILEBYID_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FIND_PROFILEBYID_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 export const cleanErrors = () => async (dispatch) => {
   dispatch({

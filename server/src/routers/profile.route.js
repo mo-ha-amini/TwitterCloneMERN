@@ -3,12 +3,14 @@ const {getProfile, getProfileByUsername, getProfiles, updateProfile, followProfi
 const {isAuthenticatedUser} = require('../middleware/auth')
 // const validate = require('../middleware/validate')
 
-// router.route('/follow/:userId')
-//       .post(auth(),  followProfile)
-//       .delete(auth(), unfollowProfile)
+router.route('/follow/:userId')
+      .post(isAuthenticatedUser,  followProfile)
+      .delete(isAuthenticatedUser, unfollowProfile)
 
 // router.get('/profiles', getProfiles)
 router.route('/profile/:username').get(isAuthenticatedUser ,getProfileByUsername)
+router.route('/profileById/:id').get(isAuthenticatedUser ,getProfile)
+
 // router.patch('/:userId', auth('manageUsers', updateProfile))
 
 module.exports = router
