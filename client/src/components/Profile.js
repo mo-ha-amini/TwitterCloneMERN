@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
+import cheerio from 'cheerio'
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser, findProfileById } from "../actions/user.action";
 import { feedTweets } from "../actions/tweets.action";
-import { follow } from "../actions/profile.action";
+import { follow, unFollow } from "../actions/profile.action";
 import Layout from "./layout";
 import Post from "./Post";
 import banner from "../assets/imgs/jaun-banner.jpg";
@@ -11,7 +12,7 @@ import profilePic from "../assets/imgs/juan-pic.jpg";
 import DeafaultImg from "../assets/default.png";
 
 function Profile({ profile }) {
-  const [followButton, setFollowButton] = useState("Follow");
+  const [followButton, setFollowButton] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -57,6 +58,21 @@ function Profile({ profile }) {
     dispatch(follow(profile.user._id));
     setFollowButton("Unfollow");
   };
+
+  const unFollowUser = () => {
+    dispatch(unFollow(profile.user._id));
+    setFollowButton("Follow");
+  };
+
+  const followHandler = () =>{
+    var value = document.getElementById("followButtonId").textContent
+    if(value === 'Unfollow'){
+      unFollowUser()
+    }
+    if(value === 'Follow'){
+      followUser()
+    }
+  }
 
   return (
     <Fragment>
@@ -165,9 +181,12 @@ function Profile({ profile }) {
                     <Fragment>
                       {authprofile.following.includes(profile.user._id) ? (
                         <button
+                          id="followButtonId"
                           style={{
-                            background: "white",
-                            color: "red",
+                            background: "black",
+                            // background: "white",
+                            // color: "red",
+                            color: "white",
                             fontSize: "16px",
                             width: "80px",
                             height: "30px",
@@ -175,11 +194,11 @@ function Profile({ profile }) {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            border: "1px solid #ecf1f2",
+                            // border: "1px solid #ecf1f2",
                           }}
-                          // onClick={followUser}
+                          onClick={followHandler}
                         >
-                          Unfollow
+                          {followButton ? `${followButton}` : 'Unfollow'}
                         </button>
                       ) : (
                         <button
@@ -194,90 +213,106 @@ function Profile({ profile }) {
                             justifyContent: "center",
                             alignItems: "center",
                           }}
-                          onClick={followUser}
+                          onClick={followHandler}
                         >
-                          Follow
+                          {followButton ? `${followButton}` : 'Follow'}
                         </button>
                       )}
+
                     </Fragment>
                   )}
-                  {/* <button
-                    style={
-                      user._id === profile.user._id
-                        ? {
-                            background: "white",
-                            color: "black",
-                            fontSize: "16px",
-                            width: "80px",
-                            height: "30px",
-                            borderRadius: "20px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            border: "1px solid #ecf1f2",
-                          }
-                        : {
-                            background: "black",
-                            color: "white",
-                            fontSize: "16px",
-                            width: "80px",
-                            height: "30px",
-                            borderRadius: "20px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }
-                    }
-                  >
-                    {user._id === profile.user._id ? "Edit" : "Follow"}
-                  </button> */}
                 </div>
 
                 <div style={{ marginTop: "35px", marginBottom: "25px" }}>
                   <h3>{profile.user.name}</h3>
 
                   <p style={{ color: "gray" }}>@{profile.user.username}</p>
-                  <ul style={{ display: "flex", padding: "0" }}>
-                    <li
-                      style={{
-                        width: " 33%",
-                        height: "40px",
-                        transition: "all .3s",
-                      }}
-                    >
-                      <h5
+                  {user._id === profile.user._id ? (
+                    <ul style={{ display: "flex", padding: "0" }}>
+                      <li
                         style={{
-                          color: " black",
-                          display: "flex",
-                          alignItems: "center",
-                          height: " 100%",
-                          justifyContent: "left",
+                          width: " 33%",
+                          height: "40px",
+                          transition: "all .3s",
                         }}
                       >
-                        {authprofile.following.length} Following
-                      </h5>
-                    </li>
+                        <h5
+                          style={{
+                            color: " black",
+                            display: "flex",
+                            alignItems: "center",
+                            height: " 100%",
+                            justifyContent: "left",
+                          }}
+                        >
+                          {authprofile.following.length} Following
+                        </h5>
+                      </li>
 
-                    <li
-                      style={{
-                        width: " 33%",
-                        height: "40px",
-                        transition: "all .3s",
-                      }}
-                    >
-                      <h5
+                      <li
                         style={{
-                          color: " black",
-                          display: "flex",
-                          alignItems: "center",
-                          height: " 100%",
-                          justifyContent: "left",
+                          width: " 33%",
+                          height: "40px",
+                          transition: "all .3s",
                         }}
                       >
-                        {authprofile.followers.length} Followers
-                      </h5>
-                    </li>
-                  </ul>
+                        <h5
+                          style={{
+                            color: " black",
+                            display: "flex",
+                            alignItems: "center",
+                            height: " 100%",
+                            justifyContent: "left",
+                          }}
+                        >
+                          {authprofile.followers.length} Followers
+                        </h5>
+                      </li>
+                    </ul>
+                  ) : (
+                    <ul style={{ display: "flex", padding: "0" }}>
+                      <li
+                        style={{
+                          width: " 33%",
+                          height: "40px",
+                          transition: "all .3s",
+                        }}
+                      >
+                        <h5
+                          style={{
+                            color: " black",
+                            display: "flex",
+                            alignItems: "center",
+                            height: " 100%",
+                            justifyContent: "left",
+                          }}
+                        >
+                          {profile.following.length} Following
+                        </h5>
+                      </li>
+
+                      <li
+                        style={{
+                          width: " 33%",
+                          height: "40px",
+                          transition: "all .3s",
+                        }}
+                      >
+                        <h5
+                          style={{
+                            color: " black",
+                            display: "flex",
+                            alignItems: "center",
+                            height: " 100%",
+                            justifyContent: "left",
+                          }}
+                        >
+                          {profile.followers.length} Followers
+                        </h5>
+                      </li>
+                    </ul>
+                  )}
+
                   <p style={{ marginBottom: "20px" }}>
                     📚🍏 The Eternal Student
                     <br />

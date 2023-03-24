@@ -2,12 +2,16 @@ import {
   FOLLOW_REQUEST,
   FOLLOW_SUCCESS,
   FOLLOW_FAIL,
+  UNFOLLOW_REQUEST,
+  UNFOLLOW_SUCCESS,
+  UNFOLLOW_FAIL,
   CLEAR_ERRORS,
 } from "../constants/profile.constant";
 
 export const followReducer = (state = { profile: {} }, action) => {
     switch (action.type) {
       case FOLLOW_REQUEST:
+      case UNFOLLOW_REQUEST:
         return {
           ...state,
           loading: true,
@@ -15,6 +19,7 @@ export const followReducer = (state = { profile: {} }, action) => {
         };
   
       case FOLLOW_SUCCESS:
+      case UNFOLLOW_SUCCESS:
         return {
           ...state,
           loading: false,
@@ -23,6 +28,7 @@ export const followReducer = (state = { profile: {} }, action) => {
         };
   
       case FOLLOW_FAIL:
+      case UNFOLLOW_FAIL:
         return {
           ...state,
           loading: false,
