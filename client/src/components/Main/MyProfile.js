@@ -51,7 +51,7 @@ function MyProfile({ profile }) {
 
   }, [dispatch, error, feedError]);
 
-  console.log(tweets)
+  // console.log(tweets)
 
   return (
     <Fragment>

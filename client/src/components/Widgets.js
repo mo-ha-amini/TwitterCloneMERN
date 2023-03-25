@@ -10,6 +10,7 @@ import Button from "../ui/Button";
 import Footer from "./Footer";
 import { searchUser } from "../actions/user.action";
 import DeafaultImg from "../assets/default.png";
+import Loader from "./Loader";
 
 function Widgets() {
   const [keyword, setKeyword] = useState("");
@@ -47,6 +48,7 @@ function Widgets() {
             onChange={onChange}
           />
         </div>
+
         {keyword ? (
           <Fragment>
             {users && users.length > 0 ? (
@@ -54,40 +56,43 @@ function Widgets() {
                 <div className="widgest__title">
                   <h2>Search Results</h2>
                 </div>
-
-                {users.map((user) => (
-                  <Link to={`/user/${user.username}`}>
-                  <div
-                    className="widgest__top"
-                    style={{ marginBottom: "15px" }}
-                  >
-                    
-                    {user.avatar ? (
-                      <img src={user.avatar} />
-                    ) : (
-                      <img
-                        src={DeafaultImg}
-                        style={{
-                          height: "40px",
-                          width: "40px",
-                          marginTop: "11px",
-                          marginRight:'10px',
-                          borderRadius: "50%",
-                        }}
-                      />
-                    )}
-                    <div className="widgest__trend">
-                      <span>@{user.username}</span>
-                      <h4>{user.name}</h4>
-                    </div>
-                    <div className="widgest__more">
-                      <FiMoreHorizontal />
-                    </div>
-                    
-                  </div>
-                  </Link>
-                ))}
-                {/* <Button /> */}
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <Fragment>
+                    {users.map((user) => (
+                      <Link to={`/user/${user.username}`}>
+                        <div
+                          className="widgest__top"
+                          style={{ marginBottom: "15px" }}
+                        >
+                          {user.avatar ? (
+                            <img src={user.avatar} />
+                          ) : (
+                            <img
+                              src={DeafaultImg}
+                              style={{
+                                height: "40px",
+                                width: "40px",
+                                marginTop: "11px",
+                                marginRight: "10px",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          )}
+                          <div className="widgest__trend">
+                            <span>@{user.username}</span>
+                            <h4>{user.name}</h4>
+                          </div>
+                          <div className="widgest__more">
+                            <FiMoreHorizontal />
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                    {/* <Button /> */}
+                  </Fragment>
+                )}
               </div>
             ) : (
               <div className="widgest__container">
