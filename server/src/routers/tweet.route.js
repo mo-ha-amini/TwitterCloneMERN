@@ -31,7 +31,7 @@ router.route('/feed').get(isAuthenticatedUser, getFeedsTweets);
 
 router
   .route('/getTweets')
-  .get(getTweets)
+  .get(isAuthenticatedUser, getTweets)
   .post(isAuthenticatedUser ,createTweet);
 
 // router

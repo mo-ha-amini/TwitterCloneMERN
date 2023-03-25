@@ -7,6 +7,9 @@ import {
     FEED_TWEETS_REQUEST,
     FEED_TWEETS_SUCCESS,
     FEED_TWEETS_FAIL,
+    USER_TWEETS_REQUEST,
+    USER_TWEETS_SUCCESS,
+    USER_TWEETS_FAIL,
     CLEAR_ERRORS,
 } from '../constants/tweet.constant'
 
@@ -58,6 +61,33 @@ export const feedTweets = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: FEED_TWEETS_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const profileUsersTweets = (userId) => async (dispatch) => {
+    try {
+
+        dispatch({ type: USER_TWEETS_REQUEST })
+
+        // const config = {
+        //     headers:{
+        //         'Content-Type' : 'application/json'
+        //     }
+        // }
+
+        const { data } = await axios.get(`/getTweets?author=${userId}`)
+        // console.log(data.tweets.results)
+
+        dispatch({ 
+            type: USER_TWEETS_SUCCESS,
+            payload: data.tweets
+        })
+
+    } catch (error) {
+        dispatch({
+            type: USER_TWEETS_FAIL,
             payload: error.response.data.message
         })
     }

@@ -7,6 +7,12 @@ import {
   FEED_TWEETS_SUCCESS,
   FEED_TWEETS_FAIL,
   FEED_TWEETS_RESET,
+  USER_TWEETS_REQUEST,
+  USER_TWEETS_SUCCESS,
+  USER_TWEETS_FAIL,
+  LIKED_TWEETS_REQUEST,
+  LIKED_TWEETS_SUCCESS,
+  LIKED_TWEETS_FAIL,
   CLEAR_ERRORS,
 } from "../constants/tweet.constant";
 
@@ -63,7 +69,7 @@ export const feedTweetsReducer = (state = { tweets: {} }, action) => {
       return {
         success: true,
         loading: false,
-        tweets: action.payload
+        tweets: action.payload,
       };
 
     case FEED_TWEETS_FAIL:
@@ -91,3 +97,45 @@ export const feedTweetsReducer = (state = { tweets: {} }, action) => {
       return state;
   }
 };
+
+export const profileTweetsReducer = (state = { tweets: {} }, action) => {
+  switch (action.type) {
+    case USER_TWEETS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
+
+    case USER_TWEETS_SUCCESS:
+      return {
+        success: true,
+        loading: false,
+        tweets: action.payload,
+      };
+
+    case USER_TWEETS_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        success: false,
+        loading: false,
+      };
+
+      return {
+        ...state,
+        success: false,
+        loading: false,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+

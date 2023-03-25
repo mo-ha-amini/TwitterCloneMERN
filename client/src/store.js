@@ -2,7 +2,7 @@
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { authReducer , searchUserReducer, findByUsernamereducer, findProfileByIdReducer} from './reducers/user.reducer'
-import { newTweetReducer,feedTweetsReducer } from './reducers/tweet.reducer'
+import { newTweetReducer,feedTweetsReducer, profileTweetsReducer } from './reducers/tweet.reducer'
 import { followReducer } from './reducers/profile.reducer'
 
 const reducer = combineReducers({  
@@ -15,6 +15,7 @@ const reducer = combineReducers({
 
     newTweet: newTweetReducer,
     feedTweets: feedTweetsReducer,
+    profileTweets: profileTweetsReducer,
 
     follow : followReducer,
     

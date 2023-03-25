@@ -15,7 +15,7 @@ function layout({ children, user }) {
       <SideBar user={user}/>
       {children}
       <Widgets />
-      <Messages />
+      {/* <Messages /> */}
     </div>
   );
 }

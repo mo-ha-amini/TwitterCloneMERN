@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
-import cheerio from 'cheerio'
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "../assets/style/react-tabs.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser, findProfileById } from "../actions/user.action";
-import { feedTweets } from "../actions/tweets.action";
+import { feedTweets, profileUsersTweets } from "../actions/tweets.action";
 import { follow, unFollow } from "../actions/profile.action";
 import Layout from "./layout";
 import Post from "./Post";
@@ -12,7 +13,7 @@ import profilePic from "../assets/imgs/juan-pic.jpg";
 import DeafaultImg from "../assets/default.png";
 
 function Profile({ profile }) {
-  const [followButton, setFollowButton] = useState('');
+  const [followButton, setFollowButton] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,11 +31,9 @@ function Profile({ profile }) {
   } = useSelector((state) => state.findProfileById);
 
   const {
-    success,
-    loading: feedLoading,
     tweets,
     error: feedError,
-  } = useSelector((state) => state.feedTweets);
+  } = useSelector((state) => state.profileTweets);
 
   useEffect(() => {
     if (error) {
@@ -48,6 +47,8 @@ function Profile({ profile }) {
     dispatch(loadUser());
     dispatch(feedTweets());
     dispatch(findProfileById(user._id));
+
+    dispatch(profileUsersTweets(user._id));
   }, [dispatch, error, feedError]);
 
   // if (authprofile && authprofile.following.includes(profile.user._id)) {
@@ -64,15 +65,15 @@ function Profile({ profile }) {
     setFollowButton("Follow");
   };
 
-  const followHandler = () =>{
-    var value = document.getElementById("followButtonId").textContent
-    if(value === 'Unfollow'){
-      unFollowUser()
+  const followHandler = () => {
+    var value = document.getElementById("followButtonId").textContent;
+    if (value === "Unfollow") {
+      unFollowUser();
     }
-    if(value === 'Follow'){
-      followUser()
+    if (value === "Follow") {
+      followUser();
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -198,7 +199,7 @@ function Profile({ profile }) {
                           }}
                           onClick={followHandler}
                         >
-                          {followButton ? `${followButton}` : 'Unfollow'}
+                          {followButton ? `${followButton}` : "Unfollow"}
                         </button>
                       ) : (
                         <button
@@ -215,10 +216,9 @@ function Profile({ profile }) {
                           }}
                           onClick={followHandler}
                         >
-                          {followButton ? `${followButton}` : 'Follow'}
+                          {followButton ? `${followButton}` : "Follow"}
                         </button>
                       )}
-
                     </Fragment>
                   )}
                 </div>
@@ -380,7 +380,7 @@ function Profile({ profile }) {
               </div>
             </div>
 
-            <ul style={{ display: "flex", padding: "0" }}>
+            {/* <ul style={{ display: "flex", padding: "0" }}>
               <li
                 style={{
                   width: " 25%",
@@ -465,8 +465,23 @@ function Profile({ profile }) {
                   Tweets
                 </a>
               </li>
-            </ul>
-            <hr />
+            </ul> */}
+            <Tabs style={{ padding: "25px" }}>
+              <TabList>
+                <Tab>Tweets</Tab>
+                <Tab>Likes</Tab>
+              </TabList>
+
+              <TabPanel>
+                {tweets.results &&
+                  tweets.results.map((tweet) => (
+                    <Post key={tweet._id} post={tweet} />
+                  ))}
+              </TabPanel>
+              <TabPanel>
+                <h6>likes</h6>
+              </TabPanel>
+            </Tabs>
 
             {/* {tweets.results &&
               tweets.results.map((tweet) => (

@@ -72,7 +72,7 @@ const getTweets = async(req, res)=>{
 
     const tweets = await Tweet.paginate(filters, options)
 
-    res.json(tweets)
+    res.json({ tweets })
 }
 
 const getTweet = async (req, res) => {

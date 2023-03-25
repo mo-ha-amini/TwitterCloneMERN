@@ -21,9 +21,10 @@ const SideBar = ({ user }) => {
     }
   })
 
-  const logoutHandler = ()=> {
-    dispatch(logoutUser())
-  }
+const logoutHandler = () => {
+    dispatch(logoutUser());
+    navigate("/login");
+  };
   return (
     <div className="sideBar">
       <AiOutlineTwitter className="sideBar__TwitterIcon" />
