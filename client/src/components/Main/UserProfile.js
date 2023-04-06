@@ -14,7 +14,7 @@ import { feedTweets, profileUsersTweets } from "../../actions/tweets.action";
 import { follow, unFollow } from "../../actions/profile.action";
 import Layout from "../layout";
 import Post from "../Post";
-import banner from "../../assets/imgs/jaun-banner.jpg";
+import banner from "../../assets/dfeaultBanner.png";
 import profilePic from "../../assets/imgs/juan-pic.jpg";
 import DeafaultImg from "../../assets/default.png";
 
@@ -32,6 +32,7 @@ function UserProfile() {
     user,
     loading: userLoading,
   } = useSelector((state) => state.auth);
+
   const { tweets } = useSelector((state) => state.profileTweets);
 
   const {
@@ -285,7 +286,7 @@ function UserProfile() {
                           </li>
                         </ul>
 
-                        <p style={{ marginBottom: "20px" }}>
+                        {/* <p style={{ marginBottom: "20px" }}>
                           📚🍏 The Eternal Student
                           <br />
                           👨‍🏫 Course Director and Teacher in @Platzi
@@ -347,7 +348,7 @@ function UserProfile() {
                             <i className="fa-solid fa-calendar"></i>
                             <p>Joined May 2016</p>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -361,7 +362,7 @@ function UserProfile() {
                     <TabPanel>
                       {tweets.results &&
                         tweets.results.map((tweet) => (
-                          <Post key={tweet._id} post={tweet} />
+                          <Post key={tweet._id} post={tweet} authUser={user}/>
                         ))}
                     </TabPanel>
                     <TabPanel>

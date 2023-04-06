@@ -9,9 +9,9 @@ router.route('/searchUser').get(isAuthenticatedUser ,searchUser)
 router.route('/logout').get(logout)
 router.route('/user/:username').get(isAuthenticatedUser, getUserByUsername)
 
-// router.get('/:userId', auth('getUser'), getUserById)
-// router.post('/createUser', auth('manageUsers'), createUser)
-// router.patch('/:userId', auth('manageUsers'), updateUser)
-// router.delete('/:userId', auth('manageUsers'), deleteUser)
+// router.get('/:userId', getUserById)
+// router.post('/createUser', createUser)
+// router.patch('/:userId', updateUser)
+// router.delete('/:userId', deleteUser)
 
 module.exports = router

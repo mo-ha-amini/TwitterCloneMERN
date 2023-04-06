@@ -26,11 +26,11 @@ function Menu() {
     <>
       <SideBarList active text="Home" Icon={AiTwotoneHome} />
       <SideBarList text="Profile" Icon={CgProfile} />
-      <SideBarList text="Explore" Icon={HiOutlineHashtag} />
+      {/* <SideBarList text="Explore" Icon={HiOutlineHashtag} />
       <SideBarList text="Notifications" Icon={IoMdNotificationsOutline} />
       <SideBarList text="Messages" Icon={BiMessageSquareDetail} />
       <SideBarList text="Bookmarks" Icon={BsBookmark} />
-      <SideBarList text="Lists" Icon={BsCardList} />
+      <SideBarList text="Lists" Icon={BsCardList} /> */}
       {/* <SideBarList text="More" Icon={CgMoreO} /> */}
       <SideBarList text="Logout" Icon={BiLogOut} onClick={logoutHandler} />
     </>

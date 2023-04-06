@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { FaRegComment } from "@react-icons/all-files/fa/FaRegComment";
 import { AiOutlineRetweet } from "@react-icons/all-files/ai/AiOutlineRetweet";
 import { BiHeart } from "@react-icons/all-files/bi/BiHeart";
@@ -6,7 +6,7 @@ import { FiShare } from "@react-icons/all-files/fi/FiShare";
 import DeafaultImg from "../assets/default.png";
 // import Posts from '../api/post.json';
 
-function Post({ post }) {
+function Post({ post, authUser}) {
   function getTime(time) {
     const nowTime = Date.now();
     const tweetTime = Date.parse(time);
@@ -57,9 +57,39 @@ function Post({ post }) {
           </div>
           {post.photo && <img src={post.photo} alt="" />}
           <div className="post__footer">
-            <FaRegComment className="post__iconblue" />
-            <AiOutlineRetweet className="post__icongreen" />
-            <BiHeart className="post__iconred" />
+            <div style={{ fontSize: "8px" }}>
+              <FaRegComment className="post__iconblue" />
+              {post.repliesCount}
+            </div>
+            <div style={{ fontSize: "8px" }}>
+              <AiOutlineRetweet className="post__icongreen" />
+              {post.retweets.length}
+            </div>
+
+            <div
+              style={{
+                fontSize: "8px",
+              }}
+            >
+              {post.likes.includes(authUser._id) ? (
+                <Fragment>
+                  <BiHeart
+                    style={{
+                      color: "#ec2828",
+                    }}
+                  />
+                  {post.likes.length}
+                </Fragment>
+              ) : (
+                <Fragment>
+                <button>
+                  <BiHeart className="post__iconred" />
+                </button>
+                {post.likes.length}
+                </Fragment>
+              )}
+            </div>
+
             <FiShare className="post__iconblue" />
           </div>
         </div>

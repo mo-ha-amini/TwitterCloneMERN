@@ -4,9 +4,7 @@ import ReactLoading from 'react-loading';
 
 const Loader = () => {
     return (
-        <div id="loader"  style={{
-            justifyContent: 'center', margin:'15px'
-        }}>
+        <div id="loader" className="flex items-center justify-center h-screen">
              <ReactLoading className="m-5 m-5" type='spinningBubbles' color='#1d9bf0' height={'7%'} width={'7%'} />
         </div>
     )

@@ -8,7 +8,7 @@ import { feedTweets, profileUsersTweets } from "../../actions/tweets.action";
 import { follow, unFollow } from "../../actions/profile.action";
 import Layout from "../layout";
 import Post from "../Post";
-import banner from "../../assets/imgs/jaun-banner.jpg";
+import banner from "../../assets/dfeaultBanner.png";
 import DeafaultImg from "../../assets/default.png";
 
 function MyProfile({ profile }) {
@@ -67,7 +67,7 @@ function MyProfile({ profile }) {
             </div>
 
             <div style={{ padding: "25px" }}>
-              <div style={{ position: "relative", marginBottom: "5px" }}>
+              <div style={{ position: "relative", marginBottom: "0" }}>
                 <div
                   style={{
                     position: "absolute",
@@ -158,7 +158,7 @@ function MyProfile({ profile }) {
                     </button>
                 </div>
 
-                <div style={{ marginTop: "35px", marginBottom: "25px" }}>
+                <div style={{ marginTop: "35px", marginBottom: "0" }}>
                   <h3>{authprofile.user.name}</h3>
 
                   <p style={{ color: "gray" }}>@{authprofile.user.username}</p>
@@ -204,7 +204,7 @@ function MyProfile({ profile }) {
                       </li>
                     </ul>
 
-                  <p style={{ marginBottom: "20px" }}>
+                  {/* <p style={{ marginBottom: "20px" }}>
                     📚🍏 The Eternal Student
                     <br />
                     👨‍🏫 Course Director and Teacher in @Platzi
@@ -266,7 +266,7 @@ function MyProfile({ profile }) {
                       <i className="fa-solid fa-calendar"></i>
                       <p>Joined May 2016</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -366,7 +366,7 @@ function MyProfile({ profile }) {
               <TabPanel>
                 {tweets.results &&
                   tweets.results.map((tweet) => (
-                    <Post key={tweet._id} post={tweet} />
+                    <Post key={tweet._id} post={tweet} authUser={authprofile.user}/>
                   ))}
               </TabPanel>
               <TabPanel>

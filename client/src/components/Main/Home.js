@@ -8,6 +8,7 @@ import { feedTweets } from '../../actions/tweets.action'
 import Layout from "../layout";
 
 import Feed from "../Feed";
+import Loader from "../Loader";
 
 function Home() {
   const dispatch = useDispatch();
@@ -34,17 +35,19 @@ function Home() {
 
   // console.log(tweets.results)
   return (
-    <div>
+    <Fragment>
+      {loading ? <Loader/> :(
       <Fragment>
         {user ? (
           <Layout key={user._id} user={user}>
             <Feed user={user} tweets={tweets.results}/>
           </Layout>
         ) : (
-          navigate("/")
+          navigate("/login")
         )}
       </Fragment>
-    </div>
+      )}
+    </Fragment>
   );
 }
 

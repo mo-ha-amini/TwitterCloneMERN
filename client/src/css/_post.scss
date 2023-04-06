@@ -67,12 +67,16 @@
   }
 
   &__icongreen:hover {
+    
     background-color: rgba(#a6e3cf, 0.3);
     color: #59b194;
   }
+  
   &__iconred:hover {
+    
     background-color: rgba(#cc83a6, 0.3);
     color: #ec2828;
+    
   }
   &__headerDescription {
     font-size: 13px;
@@ -80,3 +84,4 @@
     color: $text-color;
   }
 }
+
